@@ -4,9 +4,15 @@
         <%= link_to "Login", new_session_path(resource_name),class:"active ",id:"login-box-link" %><br />
       <% end -%>
       </div>
-      <div class="social-login ">
-          <%= link_to "Login With Facebook", new_registration_path(resource_name),class:"active",id:"login-box-link"%>
-          <%= link_to "Login With Google", new_registration_path(resource_name),class:"active",id:"login-box-link"%>
+      <div class="social-login">
+          <%= link_to  new_registration_path(resource_name),class:"active",id:"login-box-link" do%>
+            <i class="fa fa-facebook fa-lg"></i>
+          Login in with facebook
+          <% end %>
+          <%= link_to  new_registration_path(resource_name),class:"active",id:"login-box-link" do%>
+            <i class="fa fa-google-plus fa-lg"></i>
+          log in with Google
+          <% end %>
       </div>
 <div class="col-sm-10">
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), class:"email-login") do |f| %>

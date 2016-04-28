@@ -64,6 +64,7 @@ body{
   height:auto;
   padding: 10px 0 15px 0;
   border-bottom: 1px solid #eee;
+  margin-left:17px
 }
 .social-login a{
   position:relative;
@@ -85,6 +86,14 @@ body{
 .social-login a:last-child{
   background-color: #DF4A32;
 }
+
+.social-login a i{
+  position: relative;
+  float: left;
+  width: 20px;
+  top: 2px;
+}
+
 
 .email-login{
   position:relative;
