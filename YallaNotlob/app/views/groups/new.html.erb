@@ -41,8 +41,13 @@
 
 <div class="container col-sm-6" id="friend">
 		<div class="panel panel-danger">
-  		<div class="panel-heading" align="center"><h4>My Groups</h4></div>
-  		<div class="panel-body">body </div>
+  		<div class="panel-heading" align="center"><h4 id="gName"></h4></div>
+  		<div class="panel-body">
+  			
+
+
+
+  		</div>
   		</div>
 	 
 </div>
@@ -53,7 +58,7 @@ document.getElementById('friend').style.visibility = 'hidden';
 $('.addGroup').click(function(e){
 	var gId = $(e.target).attr("id");
 	var cId = gId.substr(5,gId.length-1);
-	alert(cId);	
+	console.log(cId);	
 
 	$.ajax({
         url: "/groups/"+cId+"/getName",
@@ -62,7 +67,8 @@ $('.addGroup').click(function(e){
             id: cId,
         },
         success: function(response) {
-        	alert(response.name);
+        	console.log(response.name);
+        	$('#gName').text(response.name);
         },
         error: function(xmlHttpRequestObj, status, error) {
             console.log(error);

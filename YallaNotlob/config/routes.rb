@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     resources :groups do 
         post 'getName'
     end   
+
+    resource :friends
   # Example resource route with options:
   #   resources :products do
   #     member do
