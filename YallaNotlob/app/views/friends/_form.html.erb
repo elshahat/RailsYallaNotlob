@@ -1,0 +1,14 @@
+<%= form_for :friend, url: friends_path do |f| %>
+ 
+<div class="container">
+	<div class="form-group">
+	    		<%= f.label :"Friend Name", class:"control-label col-sm-2" %>
+	      		      <%= f.text_field :name, class:"col-sm-8" %>
+	    	</div>
+			<br><br>
+	    	<div class="form-group">
+            <%= f.submit "Add", class:"btn btn-primary col-sm-offset-2 col-sm-3 "%>
+	      		      
+	    	</div>
+</div>
+<% end %>

@@ -1,0 +1,88 @@
+<h1><code>Add New Group</code></h1>
+
+<%= render 'form' %>
+
+
+<br><br>
+<div class="container col-sm-offset-0.5 col-sm-5">
+	<div class="panel panel-danger">
+  		<div class="panel-heading" align="center"><h4>My Groups</h4></div>
+  		<div class="panel-body">
+			
+
+<table class="table table-hover">
+   			 <thead>
+      				<tr>
+        				<th>Group Name</th>
+        				<th colspan="2" align="center">Actions</th>
+      				</tr>
+    		</thead>
+    		<tbody>
+        		    <% @group.each do |groups| %>
+      				<tr>
+						<td><%= groups.name %></td>
+						<td><a id="group<%= groups.id %>" href="#" class="addGroup">Add</a></td>
+						<td><%= link_to 'Destroy', group_path(groups),
+              					method: :delete,
+              					data: { confirm: 'Are you sure you want to delete?' } %></td>	
+      					</tr>
+      				<% end %>
+    		</tbody>
+  </table>  			
+
+
+
+
+
+  		</div>
+	</div>
+
+</div>  
+
+<div class="container col-sm-6" id="friend">
+		<div class="panel panel-danger">
+  		<div class="panel-heading" align="center"><h4 id="gName"></h4></div>
+  		<div class="panel-body">
+  			
+
+
+
+  		</div>
+  		</div>
+	 
+</div>
+
+<script type="text/javascript">
+document.getElementById('friend').style.visibility = 'hidden';
+
+$('.addGroup').click(function(e){
+	var gId = $(e.target).attr("id");
+	var cId = gId.substr(5,gId.length-1);
+	console.log(cId);	
+
+	$.ajax({
+        url: "/groups/"+cId+"/getName",
+        method: 'POST',
+        data: {
+            id: cId,
+        },
+        success: function(response) {
+        	console.log(response.name);
+        	$('#gName').text(response.name);
+        },
+        error: function(xmlHttpRequestObj, status, error) {
+            console.log(error);
+        },
+        complete: function(xmlHttpRequestObj) {
+            console.log("complete");
+        },
+        // dataType: 'json',
+        async: true
+    });
+	
+	document.getElementById('friend').style.visibility = 'visible';   
+
+}); //onClick
+
+
+</script>
