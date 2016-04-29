@@ -10,5 +10,5 @@ class User < ActiveRecord::Base
   has_many :groups, :dependent => :delete_all
   has_many :group_members, :dependent => :delete_all
   has_many :order_invites, :dependent => :delete_all
-
+  mount_uploader :image, ImageUploader
 end
