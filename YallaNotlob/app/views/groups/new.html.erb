@@ -12,8 +12,39 @@
 	      		      
 	    	</div>
 </div>
- 
- 
+<br><br>
+<div class="container col-sm-offset-0.5 col-sm-5">
+	<div class="panel panel-danger">
+  		<div class="panel-heading" align="center"><h4>My Groups</h4></div>
+  		<div class="panel-body">
+			
 
+<table class="table table-hover">
+   			 <thead>
+      				<tr>
+        				<th>Group Name</th>
+        				<th>Actions</th>
+      				</tr>
+    		</thead>
+    		<tbody>
+        		    <% @group.each do |groups| %>
+      				<tr>
+						<td><%= groups.name %></td>
+						<td><%= link_to 'Destroy', group_path(groups),
+              					method: :delete,
+              					data: { confirm: 'Are you sure you want to delete?' } %></td>	
+      					</tr>
+      				<% end %>
+    		</tbody>
+  </table>  			
+
+
+
+
+
+  		</div>
+	</div>
+
+<div>  
  
 <% end %>
