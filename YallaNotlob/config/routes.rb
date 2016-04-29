@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  # get 'orders/index'
+
+  # get 'orders/new'
+
+  # post 'orders/create'
+
+  # get 'orders/show'
+  
+  resources :orders
+
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
