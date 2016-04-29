@@ -14,13 +14,20 @@ class GroupsController < ApplicationController
 
 	#show the groups
 	def show
-		@group = Group
+		#redirect_to :back
 	end
 
 	def destroy
 		@group = Group.find(params[:id])
 		@group.destroy
 		redirect_to :back
+	end
+
+	#get name by selcted id
+	def getName
+		@group = Group.find(params[:id])
+		#@name = Group.find(:name, :conditions => ["id = ?", :id])
+		render json: @group
 	end
 
 	private
