@@ -8,10 +8,10 @@ class OrdersController < ApplicationController
 
   def create
   	@order = Order.new(order_params)
-
     respond_to do |format|
 	  	if @order.save
-          params[:invited].each { |invite| OrderInvite.create(order_id: @order.id,user_id: invite) }
+          # add order invites if the order successfully added
+          params[:invited].each { |invite| @order.order_invites.create(order_id: @order.id,user_id: invite) }
 	        format.html { redirect_to @order, notice: 'Order was successfully created.' }
 	        format.json { render :show, status: :created, location: @order }
 		else
