@@ -1,21 +1,18 @@
 Rails.application.routes.draw do
-  # get 'orders/index'
-
-  # get 'orders/new'
-
-  # post 'orders/create'
-
-  # get 'orders/show'
-  
   resources :orders
 
-  devise_for :users
+  get 'user/registeration'
+
+  devise_for :users, :controllers => { registrations: 'user' }
+  devise_scope :user do 
+    post '/users/lookup/' => 'user#user_lookup'
+    get '/users/lookup/:username' => 'user#user_lookup'
+  end  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
@@ -24,7 +21,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-
+    resources :groups      
   # Example resource route with options:
   #   resources :products do
   #     member do

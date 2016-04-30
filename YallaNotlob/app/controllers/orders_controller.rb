@@ -8,8 +8,10 @@ class OrdersController < ApplicationController
 
   def create
   	@order = Order.new(order_params)
+
     respond_to do |format|
 	  	if @order.save
+          params[:invited].each { |invite| OrderInvite.create(order_id: @order.id,user_id: invite) }
 	        format.html { redirect_to @order, notice: 'Order was successfully created.' }
 	        format.json { render :show, status: :created, location: @order }
 		else
@@ -29,6 +31,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_type, :destination)
+      params.require(:order).permit(:order_type, :destination, :menu_img, :invited)
     end
 end

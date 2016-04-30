@@ -11,10 +11,11 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
 //= require bootstrap-sprockets
+//= require_tree .
+//= require turbolinks
 $(".email-signup").hide();
 $("#signup-box-link").click(function(){
   $(".email-login").fadeOut(100);
