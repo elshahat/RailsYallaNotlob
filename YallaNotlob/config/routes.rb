@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+  resources :orders
 
   get 'user/registeration'
 
   devise_for :users, :controllers => { registrations: 'user' }
+  devise_scope :user do 
+    post '/users/lookup/' => 'user#user_lookup'
+    get '/users/lookup/:username' => 'user#user_lookup'
+  end  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -20,7 +25,9 @@ Rails.application.routes.draw do
         post 'getName'
     end   
 
-    resource :friends
+    resource :friends do
+        get 'getId'
+    end
   # Example resource route with options:
   #   resources :products do
   #     member do
