@@ -17,6 +17,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'carrierwave', '~> 0.10.0'
 #Use minimagick to resize images
 gem 'mini_magick', '~> 4.3'
+#facebook api
+gem "koala", "~> 2.2"
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
