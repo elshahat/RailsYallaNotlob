@@ -20,7 +20,9 @@ Rails.application.routes.draw do
         post 'getName'
     end   
 
-    resource :friends
+    resource :friends do
+        post 'getId'
+    end
   # Example resource route with options:
   #   resources :products do
   #     member do
