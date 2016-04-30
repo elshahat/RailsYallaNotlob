@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     end   
 
     resource :friends do
-        post 'getId'
+        get 'getId'
     end
   # Example resource route with options:
   #   resources :products do

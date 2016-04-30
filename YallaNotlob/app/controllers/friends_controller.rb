@@ -6,23 +6,24 @@ class FriendsController < ApplicationController
 		#@friend_id = User.where	(["username = ?", friend_params]).first
 		#@fid = User.find_by(:id,:conditions => ["username = ?", friend_params],)
 		#render plain: User.find_by(friend_params).inspect
-		@fid = User.find_by(friend_params)
+		@fid = User.find_by(username: params[:username])
 		@user = current_user
 		@friend = @user.friendships.create(friend_id: @fid.id)
-		redirect_to :back
+		render json: @fid
+		
 	end
 
 
 	def getId
 		#@name = User.find(:id, :conditions => ["username = ?", :username])
-		@name = User.find(params[:username])
-		render json: @name
+		@friend = User.find_by(params[:username])
+		render json: @friend
 	end
 
-	private 
-	def friend_params
-		params.require(:friend).permit(:username)
-	end
+	#private 
+	#def friend_params
+	#	params.require(:friend).permit(:username)
+	#end
 
 
 end
