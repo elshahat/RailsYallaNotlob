@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="form-group col-sm-8 pull-left">
+        <h1>Add Order</h1>
+        <%= form_for @order,html: { multipart: true  } do |f| %>
+        <div class="errors">
+            <% if @order.errors.any? %>
+            <div id="error_explanation">
+                <h2><%= pluralize(@order.errors.count, "error") %>
+                    prohibited this order from being saved:</h2>
+
+                <ul>
+                    <% @order.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                </ul>
+            </div>
+            <% end %>
+        </div>
+        <%= f.label :order_type, {class: "control-label", value: "For"}%>
+        <%= f.select :order_type, Order.types,{}, class: "form-control" %>
+        <br>
+        <%= f.label :destination, {class: "control-label", value: "From"}%>
+        <%= f.text_field :destination, {class: "form-control",placeholder: "Write A resturant name"} %>
+        <br>
+        <label for="add-friend">Invite Friends</label>
+        <input type="text" name="friends" id="invite_friend" class="form-control">
+        <br>
+        <%= f.label :menu_img, {class: "control-label", value: "Menu Image"}%>
+        <%= f.file_field :menu_img %>
+        <br>
+        <div id="invites-area"></div>
+        <div id="groups-area"></div>
+        <%= f.submit "Add Order", class: "btn btn-info" %>
+        <% end %>
+    </div>
+    <div class="col-sm-4">
+        <h1>Friends Invited</h1>
+        <div id="friends-invited"></div>
+    </div>
+</div>
