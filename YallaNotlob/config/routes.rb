@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
   resources :orders
-
   get 'user/registeration'
-
-  devise_for :users, :controllers => { registrations: 'user' }
-  devise_scope :user do 
+  devise_for :users, :controllers => { registrations: 'user', omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_scope :user do
     post '/users/lookup/' => 'user#user_lookup'
     get '/users/lookup/:username' => 'user#user_lookup'
   end  
