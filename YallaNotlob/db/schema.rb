@@ -65,9 +65,9 @@ ActiveRecord::Schema.define(version: 20160429032927) do
   add_index "order_items", ["user_id"], name: "index_order_items_on_user_id", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.string   "destination", limit: 100
+    t.string   "destination", limit: 100,             null: false
     t.string   "menu_img",    limit: 200
-    t.integer  "order_type",  limit: 1
+    t.integer  "order_type",  limit: 1,               null: false
     t.integer  "status",      limit: 1,   default: 1
     t.integer  "user_id",     limit: 4
     t.datetime "created_at",                          null: false

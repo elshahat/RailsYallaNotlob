@@ -1,0 +1,13 @@
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+
+<% @orders.each do |order| %>
+	
+	<% if order.order_type == 1  %>
+		
+		breakfast on
+		<%= order.created_at %>
+		<br>
+
+	<% end	%>
+<% end %>
