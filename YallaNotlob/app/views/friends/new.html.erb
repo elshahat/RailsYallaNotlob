@@ -9,7 +9,7 @@
   	
 
   			<div class="row">
-  				
+  			  <%= render :file => 'friends/show' %>
   			</div>	
 			
 
@@ -33,7 +33,7 @@ $('.addFriend').click(function(e){
         success: function(response) {    
         	
         	$('.row').append(
-        		"<div class='col-sm-offset-1  col-sm-3'><div class='panel-success'><img src="+response.image.url+" class='img-circle' alt='Cinque Terre' width='170' height='150'><div class='textDesc' align='center'><h4><code>"+response.username+"</code></h4><a href='#''>Remove Friend</a></div></img></div></div>"	
+        		"<div class='col-sm-offset-1  col-sm-3'><div class='panel-success'><img src="+response.image.url+" class='img-circle' alt='Cinque Terre' width='170' height='150'><div class='textDesc' align='center'><h4><code>"+response.username+"</code></h4><a href='#''>Unfriend</a></div></img></div></div>"	
         	);      	
         	console.log(response);
         },

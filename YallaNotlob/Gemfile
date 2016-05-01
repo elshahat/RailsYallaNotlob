@@ -41,6 +41,15 @@ gem 'autoprefixer-rails'
 # this is to fix the problem in turbolinks gem that stops jquery events from working
 gem 'jquery-turbolinks'
 
+# this gem is a wrapper over faye to make it easy to publish or subscribe to notifications or messages server/client
+gem 'private_pub'
+
+# server for running faye
+gem 'thin'
+
+# jquery file uploader
+gem 'remotipart', '~> 1.2'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -62,4 +71,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

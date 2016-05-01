@@ -43,10 +43,12 @@
 		<div class="panel panel-danger">
   		<div class="panel-heading" align="center"><h4 id="gName"></h4></div>
   		<div class="panel-body">
-  			
-
-
-
+        <%= render 'friends/form' %>
+        <!-- The Div that show friends of that group -->
+        <div class="row">
+          
+        </div>
+        <!-- End Of the show -->
   		</div>
   		</div>
 	 
@@ -67,8 +69,45 @@ $('.addGroup').click(function(e){
             id: cId,
         },
         success: function(response) {
-        	console.log(response.name);
+        	// console.log(response.members[0].username);
+          //empty the row first before appending the data
+          $('.row').empty();
+          $.each(response.members,function(key,value){
+            //console.log(value.username);
+            $('.row').append(
+                      "<div class='col-sm-offset-1  col-sm-3'><div class='panel-success'><img src="+value.image.url+" class='img-circle' alt='Cinque Terre' width='120' height='100'><div class='textDesc' align='center'><h4><code>"+value.username+"</code></h4><a href='#''>Remove</a></div></img></div></div>"  
+                        );
+          });
         	$('#gName').text(response.name);
+//-------/////////////////////////////////////////////////////////////////          
+          //Dealing with the other button to insert user_id into this group id
+          $('.addFriend').click(function(e){
+               var username = jQuery('.friendName').val();
+               console.log(username);
+
+               $.ajax({
+                    url: "/groups/"+cId+"/addFriend",
+                    method: 'POST',
+                    data:{
+                      groupId: cId,
+                      username: username,
+                    },
+                    success: function(friend) {
+                      $('.row').append(
+                      "<div class='col-sm-offset-1  col-sm-3'><div class='panel-success'><img src="+friend.image.url+" class='img-circle' alt='Cinque Terre' width='120' height='100'><div class='textDesc' align='center'><h4><code>"+friend.username+"</code></h4><a href='#''>Remove</a></div></img></div></div>"  
+                        );
+                    },
+                    error: function(xmlHttpRequestObj, status, error) {
+                       console.log(error);
+                    },
+                   complete: function(xmlHttpRequestObj) {
+                      console.log("complete");
+                    },
+                      // dataType: 'json',
+                      async: true
+                    }); 
+          });
+//-------////////////////////////////////////////
         },
         error: function(xmlHttpRequestObj, status, error) {
             console.log(error);
