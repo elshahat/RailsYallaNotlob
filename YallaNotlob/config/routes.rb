@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   #   resources :products
     resources :groups do 
         post 'getName'
+        post 'addFriend'
     end   
 
     resource :friends

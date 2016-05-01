@@ -27,7 +27,20 @@ class GroupsController < ApplicationController
 	def getName
 		@group = Group.find(params[:id])
 		#@name = Group.find(:name, :conditions => ["id = ?", :id])
-		render json: @group
+		@group_members =[]
+		@group.group_members.each do |member|
+			@group_members.push(User.find(member.user_id));
+		end
+	 	@group_data = {name: @group.name , members: @group_members}
+		render json: @group_data
+	end
+
+	def addFriend
+		#Now i have this friend data from the data base and i already have the groupId
+		@fid = User.find_by(username: params[:username])
+		@gid = params[:groupId]
+		@group = @fid.group_members.create(group_id: @gid)
+		render json: @fid
 	end
 
 	private
