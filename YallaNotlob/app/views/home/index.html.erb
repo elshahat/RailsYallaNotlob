@@ -23,19 +23,22 @@
 
 
 <% @all.each do |gorder| %>
-	
-	<% if gorder.order_type == 1  %>
+	<% gorder.each do |order|%>
+	<% if order.order_type == 1  %>
 		<% food  = 'BreakFast' %>
 	<% end	%>
-	<% if gorder.order_type == 2  %>
+	<% if order.order_type == 2  %>
 		<% food  = 'Launch' %>
 	<% end	%>
-	<% if gorder.order_type == 3  %>
+	<% if order.order_type == 3  %>
 		<% food  = 'Dinner' %>
 	<% end	%>
 	
-	<%=gorder.user.username %> make order for <%= food %> from <%= gorder.destination %> 
-	
+	<%= order.user.username %> make <%= food %> from <%= order.destination %> 
+	<% end %>
 
 	<br>
 <% end %>
+
+
+
