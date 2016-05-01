@@ -1,8 +1,14 @@
-
+// if creation wasnt successfull show error alert
+<% if @order.id == nil %>
+  $('.errors').html('<div class="alert alert-danger">Please Fill all the fields</div>');
+<% else %>
+// publish notifications to all invited users
 <% @invites.each do |invite| %>
 <% publish_to "/notifications/user/#{invite.user_id}" do %>
+// incerement the number of new notification for invited user
 var notificationsNum = $('#new_notification_number').text();
 $('#new_notification_number').text(++notificationsNum);
+// append the new notification body to the notification menu
 $('.notifications-wrapper').prepend(
   $('<a/>')
     .addClass("content")
@@ -25,10 +31,13 @@ $('.notifications-wrapper').prepend(
         .append(
           $('<p/>')
             .addClass('item-info')
+            // link to order details page
             .html('<%= link_to "Join now", invite.order %>')
         )
     )
 );
 <% end %>
 <% end %>
-// window.location.href = "/orders";
+// redirect the user to the order details page after successful order creation
+window.location.href = "<%= order_url(@order) %>";
+<% end %>

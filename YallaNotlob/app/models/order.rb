@@ -7,6 +7,5 @@ class Order < ActiveRecord::Base
   mount_uploader :menu_img, ImageUploader
   validates :destination, presence: true
   validates :menu_img, presence: true
-  validates :invited, presence: true
   default_scope { order('created_at DESC') }
 end
