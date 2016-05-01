@@ -4,10 +4,19 @@
 <% @orders.each do |order| %>
 	
 	<% if order.order_type == 1  %>
-		
-		breakfast on
-		<%= order.created_at %>
-		<br>
-
+		<% food  = 'BreakFast' %>
 	<% end	%>
+	<% if order.order_type == 2  %>
+		<% food  = 'Launch' %>
+	<% end	%>
+	<% if order.order_type == 3  %>
+		<% food  = 'Dinner' %>
+	<% end	%>
+	
+	
+	<%= link_to   order_url(order) do %>
+		<%= food %> on <%= order.created_at %>
+	<% end %>
+	<br>
+
 <% end %>
