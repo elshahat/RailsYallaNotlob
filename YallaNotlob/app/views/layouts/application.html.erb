@@ -31,7 +31,9 @@
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
+                      <% if user_signed_in? %>
                         <!--  notification area -->
+
                         <div class="dropdown">
                             <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html"><span class="label label-primary" style="font-size: .9em" id="new_notification_number"><%=  current_user.order_invites.where(invite_status: "Pending").count %></span>
                                 <i class="glyphicon glyphicon-bell" style="font-size: 1.5em">
@@ -68,6 +70,7 @@
                                     <% end %>
 
                                   <% end %>
+
                                 </div>
                                 <li class="divider"></li>
                                 <div class="notification-footer">
@@ -78,6 +81,8 @@
 
                         </div>
                         <!--  end of notifications area -->
+                        <% end %>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
