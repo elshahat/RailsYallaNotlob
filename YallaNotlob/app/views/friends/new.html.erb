@@ -4,45 +4,38 @@
 <br><br>
 <div class="container col-sm-offset-1 col-sm-9">
 	<div class="panel panel-danger">
-  		<div class="panel-heading" align="center"><h4>My Friends</h4></div>
-  		<div class="panel-body">body</div>
+  		<div class="panel-heading"><h4>Friends List</h4></div>
+  		<div class="panel-body">
+  	
+
+  			<div class="row">
+  			  <%= render :file => 'friends/show' %>
+  			</div>	
+			
+
+  		</div>
   	</div>	
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script type="text/javascript">
+
 $('.addFriend').click(function(e){
 	var username = jQuery('.friendName').val()
 	//alert(username);
 	//console.log(username);	
 	$.ajax({
-        url: "/groups/getId",
+        url: "/friends",
         method: 'POST',
         data: {
             username: username,
         },
-        success: function(response) {
-        	alert(response.id);
-        	window.location.href = "/groups/create";
+        success: function(response) {    
+        	
+        	$('.row').append(
+        		"<div class='col-sm-offset-1  col-sm-3'><div class='panel-success'><img src="+response.image.url+" class='img-circle' alt='Cinque Terre' width='170' height='150'><div class='textDesc' align='center'><h4><code>"+response.username+"</code></h4><a href='#''>Remove Friend</a></div></img></div></div>"	
+        	);      	
+        	console.log(response);
         },
         error: function(xmlHttpRequestObj, status, error) {
             console.log(error);
