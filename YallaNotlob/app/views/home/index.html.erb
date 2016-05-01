@@ -1,0 +1,41 @@
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+
+<% @orders.each do |order| %>
+	
+	<% if order.order_type == 1  %>
+		<% food  = 'BreakFast' %>
+	<% end	%>
+	<% if order.order_type == 2  %>
+		<% food  = 'Launch' %>
+	<% end	%>
+	<% if order.order_type == 3  %>
+		<% food  = 'Dinner' %>
+	<% end	%>
+	
+	
+	<%= link_to   order_url(order) do %>
+		<%= food %> on <%= order.created_at %>
+	<% end %>
+	<br>
+<% end %>
+
+
+
+<% @all.each do |gorder| %>
+	
+	<% if gorder.order_type == 1  %>
+		<% food  = 'BreakFast' %>
+	<% end	%>
+	<% if gorder.order_type == 2  %>
+		<% food  = 'Launch' %>
+	<% end	%>
+	<% if gorder.order_type == 3  %>
+		<% food  = 'Dinner' %>
+	<% end	%>
+	
+	<%=gorder.user.username %> make order for <%= food %> from <%= gorder.destination %> 
+	
+
+	<br>
+<% end %>

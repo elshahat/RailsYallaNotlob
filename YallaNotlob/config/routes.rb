@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'home/index'
+
   resources :orders
   get 'user/registeration'
   devise_for :users, :controllers => { registrations: 'user', omniauth_callbacks: 'users/omniauth_callbacks' }
