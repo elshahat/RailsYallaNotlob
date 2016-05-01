@@ -15,6 +15,8 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require_tree .
+//= require private_pub
+//= require jquery.remotipart
 //= require turbolinks
 
 $(".email-signup").hide();
