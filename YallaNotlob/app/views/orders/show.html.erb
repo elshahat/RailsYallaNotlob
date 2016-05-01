@@ -1,2 +1,101 @@
-<h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+<div class="container">
+  <div class="errors">
+
+  </div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="panel panel-primary">
+                <!-- Default panel contents -->
+                <div class="panel-heading">
+                    <h1>Order Details</h1>
+                </div>
+                <div class="panel-body bg-info">
+                    <h3>
+                        <p class="text-warning" id="body_info">This Order Created By Admin
+                            <small>2 minutes ago</small>
+                        </p>
+                    </h3>
+                </div>
+
+                <!-- Table -->
+                <table class="table table-bordered table-hover bg-info">
+                    <thead>
+                        <tr>
+                            <th class="col-sm-3">Person</th>
+                            <th class="col-sm-2">Item</th>
+                            <th class="col-sm-1">Amount</th>
+                            <th class="col-sm-1">Price</th>
+                            <th class="col-sm-4">Comment</th>
+                            <th class="col-sm-1">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="items">
+                      <% @order_items.each do |item| %>
+                        <tr>
+                            <td class="col-sm-3"><%= item.user.username.titleize %></td>
+                            <td class="col-sm-2"><%= item.item.titleize %></td>
+                            <td class="col-sm-1"><%= item.amount %></td>
+                            <td class="col-sm-1"><%= item.price %></td>
+                            <td class="col-sm-4"><%= item.comment.titleize %></td>
+                            <td class="col-sm-1 btn glyphicon glyphicon-remove"></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <br><br><br>
+            <h2>
+                <span class="label label-primary">
+                    4 Friends invited
+                    <a href="#" class="text-danger">
+                        <strong>click to view</strong>
+                    </a>
+                </span>
+            </h2>
+            <br>
+            <h2>
+                <span class="label label-primary">
+                    1 Friends joined
+                    <a href="#" class="text-danger">
+                        <strong>click to view</strong>
+                    </a>
+                </span>
+            </h2>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">Add Item</h3>
+        </div>
+        <div class="panel-body" >
+<%= form_for([@order,@order_item], :url => order_items_path(@order), html: { class: "form-inline" }, remote: true) do |f| %>
+            <div class="form-group">
+                <%= f.label :item, {class: "control-label"}%>
+                <%= f.text_field :item, class: "form-control" %>
+            </div>
+            <div class="form-group">
+                <%= f.label :amount, {class: "control-label"}%>
+                <%= f.number_field :amount, class: "form-control" %>
+            </div>
+            <div class="form-group">
+                <%= f.label :price, {class: "control-label"}%>
+                <%= f.number_field :price, class: "form-control" %>
+            </div>
+            <div class="form-group">
+                <%= f.label :comment, {class: "control-label"}%>
+                <%= f.text_field :comment, class: "form-control" %>
+            </div>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.hidden_field :order_id, value: @order.id %>
+
+            <%= f.submit 'Add', class: "form-control" %>
+
+            <!-- <a class="btn btn-primary">Add</a> -->
+            <% end %>
+            <!-- </div> -->
+        </div>
+    </div>
+
+</div>

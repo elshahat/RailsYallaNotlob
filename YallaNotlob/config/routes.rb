@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  resources :orders
+
+  resources :orders do
+    # get 'order_items/index'
+
+    # get 'order_items/new'
+
+    # post 'order_items/create'
+
+    # delete 'order_items/destroy'
+    resources :items
+  end
   get 'user/registeration'
   devise_for :users, :controllers => { registrations: 'user', omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do

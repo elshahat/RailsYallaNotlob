@@ -29,6 +29,11 @@ class OrdersController < ApplicationController
   end
 
   def show
+    @order = Order.find(params[:id])
+    @order_item = OrderItem.new
+    @order_items = OrderItem.all
+    puts @order.inspect
+    puts @order_item.inspect
     # check if user is already invited to the requested order
     @invite = current_user.order_invites.find_by(order_id: params[:id])
     if @invite
