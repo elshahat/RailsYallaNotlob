@@ -11,8 +11,8 @@
                 </div>
                 <div class="panel-body bg-info">
                     <h3>
-                        <p class="text-warning" id="body_info">This Order Created By Admin
-                            <small>2 minutes ago</small>
+                        <p class="text-warning">This order was created by "<%= @order.user.username.titleize %>"
+                            <small><%= time_ago_in_words @order.created_at %>  </small>
                         </p>
                     </h3>
                 </div>
@@ -37,7 +37,11 @@
                             <td class="col-sm-1"><%= item.amount %></td>
                             <td class="col-sm-1"><%= item.price %></td>
                             <td class="col-sm-4"><%= item.comment.titleize %></td>
-                            <td class="col-sm-1 btn glyphicon glyphicon-remove"></td>
+                            <% if current_user.id == item.user_id %>
+                              <td id="deleteItem<%= item.id %>" class="col-sm-1 btn glyphicon glyphicon-remove delete-item"></td>
+                            <% else %>
+                              <td></td>
+                            <% end %>
                         </tr>
                         <% end %>
                     </tbody>
