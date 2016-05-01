@@ -1,7 +1,15 @@
 class FriendsController < ApplicationController
 
 	def new
-		@friend_to_user = User.joins("INNER JOIN friendships ON friendships.friend_id = users.id")	
+		#query = "SELECT * from users,friendships where friendships.friend_id = users.id group by friendships.friend_id having friendships.user_id = "+current_user.id.to_s
+		#@friend_to_user = ActiveRecord::Base.connection.execute(query)
+		#puts "heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+		#puts @friend_to_user.inspect
+		#@friend_to_user = User.find_by_sql("SELECT * from users,friendships where friendships.friend_id = users.id group by friendships.friend_id having friendships.user_id = "+current_user.id.to_s)	
+		@friend_to_user = current_user.friends
+		#@friend_to_user = User.select("* from users,friendships").where("friendships(friend_id) = users(id)").group("friendships(friend_id)").having("friendships(user_id) = "+current_user.id.to_s)	
+		#puts @friend_to_user.inspect
+		#SELECT * from `users`,`friendships` where friendships.friend_id = users.id group by friendships.friend_id having friendships.user_id = 8
 	end
 	
 	def create
