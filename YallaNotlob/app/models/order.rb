@@ -5,5 +5,7 @@ class Order < ActiveRecord::Base
   enum status: { Waiting: 1, Finished: 0}
   enum type: { Breakfast: 1, Lunch: 2, Dinner: 3}
   mount_uploader :menu_img, ImageUploader
-  validates :destination, presence: true 
+  validates :destination, presence: true
+  validates :menu_img, presence: true
+  default_scope { order('created_at DESC') }
 end

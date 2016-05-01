@@ -2,14 +2,12 @@ Rails.application.routes.draw do
   get 'home/index'
 
   resources :orders
-
   get 'user/registeration'
-
-  devise_for :users, :controllers => { registrations: 'user' }
-  devise_scope :user do 
+  devise_for :users, :controllers => { registrations: 'user', omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_scope :user do
     post '/users/lookup/' => 'user#user_lookup'
     get '/users/lookup/:username' => 'user#user_lookup'
-  end  
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -23,9 +21,10 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-    resources :groups do 
+    resources :groups do
         post 'getName'
-    end   
+        post 'addFriend'
+    end
 
     resource :friends
   # Example resource route with options:

@@ -5,10 +5,9 @@ class HomeController < ApplicationController
 		@orders = Order.all.where(user_id: current_user.id).order(created_at: :desc) 
 		# --------------------------
 
-		# @all = Order.joins(:user , :friendship).select("*").where(friendship: {user_id: current_user.id}).where(friendship: {friend_id: 2})
-		
-		@all = Order.joins(:user).select("*")
-
+		@all = current_user.friends.orders
+		puts @all.inspect
+		# @all = Order.joins(:user).select("*")
 
 	else
     	redirect_to '/users/sign_in'

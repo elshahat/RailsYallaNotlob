@@ -6,7 +6,7 @@
       <% end -%>
       </div>
       <div class="social-login">
-          <%= link_to  new_registration_path(resource_name),class:"active",id:"login-box-link" do%>
+          <%= link_to  user_omniauth_authorize_path(:facebook),class:"active",id:"login-box-link" do %>
             <i class="fa fa-facebook fa-lg"></i>
           Login in with facebook
           <% end %>
