@@ -18,5 +18,24 @@
 		<%= food %> on <%= order.created_at %>
 	<% end %>
 	<br>
+<% end %>
 
+
+
+<% @all.each do |gorder| %>
+	
+	<% if gorder.order_type == 1  %>
+		<% food  = 'BreakFast' %>
+	<% end	%>
+	<% if gorder.order_type == 2  %>
+		<% food  = 'Launch' %>
+	<% end	%>
+	<% if gorder.order_type == 3  %>
+		<% food  = 'Dinner' %>
+	<% end	%>
+	
+	<%=gorder.username %> make order for <%= food %> from <%= gorder.destination %> 
+	
+
+	<br>
 <% end %>
