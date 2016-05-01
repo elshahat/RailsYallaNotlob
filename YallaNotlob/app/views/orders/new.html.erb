@@ -1,7 +1,7 @@
 <div class="container">
     <div class="form-group col-sm-8 pull-left">
         <h1>Add Order</h1>
-        <%= form_for @order,html: { multipart: true  } do |f| %>
+        <%= form_for @order, html: { multipart: true  }, remote: true do |f| %>
         <div class="errors">
             <% if @order.errors.any? %>
             <div id="error_explanation">
@@ -26,11 +26,14 @@
         <input type="text" name="friends" id="invite_friend" class="form-control">
         <br>
         <%= f.label :menu_img, {class: "control-label", value: "Menu Image"}%>
-        <%= f.file_field :menu_img %>
+        <%= f.file_field :menu_img %> <div id="file_name">
+
+        </div>
         <br>
         <div id="invites-area"></div>
         <div id="groups-area"></div>
-        <%= f.submit "Add Order", class: "btn btn-info" %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.submit "Add Order", {class: "btn btn-info", id: "submit"} %>
         <% end %>
     </div>
     <div class="col-sm-4">

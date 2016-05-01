@@ -1,0 +1,34 @@
+
+<% @invites.each do |invite| %>
+<% publish_to "/notifications/user/#{invite.user_id}" do %>
+var notificationsNum = $('#new_notification_number').text();
+$('#new_notification_number').text(++notificationsNum);
+$('.notifications-wrapper').prepend(
+  $('<a/>')
+    .addClass("content")
+    .append(
+      $('<div/>')
+        .addClass('notification-item')
+        .append(
+          $('<h4/>')
+            .addClass('item-title')
+            .text(
+              "<%= invite.order.user.username.titleize + " invited you to" %>"
+              +"<% if invite.order.user.gender == "0" %> his"
+              +"<% else %> her <% end %> new order"
+            )
+            .append(
+              $('<small/>')
+                .text("<%= time_ago_in_words invite.created_at %>")
+            )
+        )
+        .append(
+          $('<p/>')
+            .addClass('item-info')
+            .html('<%= link_to "Join now", invite.order %>')
+        )
+    )
+);
+<% end %>
+<% end %>
+// window.location.href = "/orders";
