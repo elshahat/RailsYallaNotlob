@@ -4,7 +4,8 @@ class OrdersController < ApplicationController
     @orders = Order.all.where(user_id: current_user.id).order(created_at: :desc)
   end
 
-  
+  def finish
+  end
 
   def new
   	@order = Order.new
