@@ -243,6 +243,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :facebook, "167848666948387", "8bceee813dfbe4ed5e398dd267d11ab8", scope: 'email', info_fields: 'email,name,gender,picture'
+  config.omniauth :google_oauth2, "239897163522-1qb7v9aqs69v63e2d79sonnbdq72dmtk.apps.googleusercontent.com", "GafsvxfGwQBmpqjJGGQCvAji", scope: 'email, profile, plus.me, plus.login', skip_jwt: true
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
