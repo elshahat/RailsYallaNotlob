@@ -45,6 +45,14 @@ class OrdersController < ApplicationController
       render file: "#{Rails.root}/public/404.html", layout: false, status: 404
     end
   end
+  def order_invited_users
+    @users = Order.find(params[:order_id]).order_invites.where(invite_status: "0").collect { |invite| invite.user }
+    render json: @users.to_json
+  end
+  def order_joined_users
+    @users = Order.find(params[:order_id]).order_invites.where(invite_status: "1").collect { |invite| invite.user }
+    render json: @users.to_json
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order

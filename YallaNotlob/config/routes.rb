@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
     # delete 'order_items/destroy'
     resources :items
+    get '/invited_users' => 'orders#order_invited_users'
+    get '/joined_users' => 'orders#order_joined_users'
   end
   get 'user/registeration'
   devise_for :users, :controllers => { registrations: 'user', omniauth_callbacks: 'users/omniauth_callbacks' }
