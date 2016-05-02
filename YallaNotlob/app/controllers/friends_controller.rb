@@ -13,6 +13,10 @@ class FriendsController < ApplicationController
 			puts "this guy is empty"
 			render json: @error_null
 		else #check if it is the same user
+			#if it is a wrong type
+if User.exists? username: @parameter
+				puts "ok fine it is a user"
+			#check if he is the same user		
 			if @parameter == current_user.username 
 				@error_addSelf = {'same': 'You can not add your self !'}
 				puts "add your self nigger"
@@ -33,9 +37,14 @@ class FriendsController < ApplicationController
 				puts "New friend Ha"	
 				puts "this guy is full of data"				
 			end
+else
+			@error_notValid = {'notValid': 'This user is not exist !'}
+			puts "Nooo it is a robot"
+			render json: @error_notValid				
+end	
 		end
 			
-	end
+	end #function
 
 	def show
 		@friend_to_user = User.joins("INNER JOIN friendships ON friendships.friend_id = users.id")	
