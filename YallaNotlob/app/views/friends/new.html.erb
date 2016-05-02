@@ -21,14 +21,14 @@
 <script type="text/javascript">
 
 $('.addFriend').click(function(e){
-	var username = jQuery('.friendName').val()
+	var name = jQuery('.friendName').val()
 	//alert(username);
-	//console.log(username);	
+	console.log(name);	
 	$.ajax({
         url: "/friends",
         method: 'POST',
         data: {
-            username: username,
+            name: name,
         },
         success: function(response) {    
         	
