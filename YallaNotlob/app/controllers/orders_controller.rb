@@ -12,7 +12,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    puts order_params
+    puts order_params[:order_type].class
+
   	@order = Order.new(order_params)
     puts @order.inspect
     respond_to do |format|
@@ -35,10 +36,11 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    puts @order.order_type
     @order_item = OrderItem.new
-    @order_items = OrderItem.all
+    @order_items = @order.order_items
     puts @order.inspect
-    puts @order_item.inspect
+    # puts @order_item.inspect
     # check if user is already invited to the requested order
     @invite = current_user.order_invites.find_by(order_id: params[:id])
     if @invite
@@ -66,6 +68,9 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_type, :destination, :menu_img, :user_id)
+
+      @n_params = params.require(:order).permit(:order_type, :destination, :menu_img, :user_id)
+      @n_params[:order_type] = @n_params[:order_type].to_i
+      return @n_params 
     end
 end

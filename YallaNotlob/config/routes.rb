@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     resources :groups do
         post 'getName'
         post 'addFriend'
+        delete 'deletefriend'
     end
 
     resource :friends

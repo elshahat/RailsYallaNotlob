@@ -43,6 +43,14 @@ class GroupsController < ApplicationController
 		render json: @fid
 	end
 
+	def deletefriend
+		@friend = User.find_by(id: params[:friendId])
+		@group_member = GroupMember.find_by(group_id: params[:groupId],user_id: params[:friendId])
+		@group_member.destroy
+		render json: @friend
+	end
+
+
 	private
 	def group_params
 		params.require(:group).permit(:name)
