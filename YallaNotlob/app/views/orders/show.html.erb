@@ -7,13 +7,14 @@
             <div class="panel panel-primary">
                 <!-- Default panel contents -->
                 <div class="panel-heading">
-                    <h1>Order Details</h1>
+                    <h1><%= @order.order_type %> From <%=@order.destination.titleize %> Order Details</h1>
                 </div>
                 <div class="panel-body bg-info">
                     <h3>
                         <p class="text-warning">This order was created by "<%= @order.user.username.titleize %>"
                             <small><%= time_ago_in_words @order.created_at %>  </small>
                         </p>
+
                     </h3>
                 </div>
 
@@ -48,25 +49,32 @@
                 </table>
             </div>
         </div>
+        <!--  right side -->
         <div class="col-sm-4">
-            <br><br><br>
-            <h2>
+            <h3>
                 <span class="label label-primary">
                     <%= pluralize @order.order_invites.where(invite_status: "0").count ,"Friend"%> invited
                     <a id="invited" href="#modal" data-toggle="modal" class="text-danger">
                         <strong>click to view</strong>
                     </a>
                 </span>
-            </h2>
-            <br>
-            <h2>
+            </h3>
+            <h3>
                 <span class="label label-primary">
                     <%= pluralize @order.order_invites.where(invite_status: "1").count ,"Friend"%> joined
                     <a id="joined" href="#modal" data-toggle="modal" class="text-danger">
                         <strong>click to view</strong>
                     </a>
                 </span>
-            </h2>
+            </h3>
+            <br>
+            <!--  menu image -->
+            <div class="thumbnail">
+              <div class="caption">
+                <h4 class="text-center">Menu Image</h4>
+              </div>
+              <img src="<%= @order.menu_img %>" alt="">
+            </div>
         </div>
     </div>
     <div class="panel panel-info">
