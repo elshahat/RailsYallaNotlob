@@ -1,10 +1,22 @@
 class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
-    @orders = Order.all.where(user_id: current_user.id).order(created_at: :desc)
+    @orders = Order.where(user_id: current_user.id)
+    puts @orders.inspect
   end
 
   def finish
+    @orders = Order.find params[:id]
+      if @orders.update(status: '2')
+         redirect_to '/orders'
+      end
+  end
+
+  def cancel
+    @orders = Order.find params[:id]
+        if @orders.destroy
+          redirect_to '/orders'
+        end
   end
 
   def new
