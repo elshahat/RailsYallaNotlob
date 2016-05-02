@@ -21,11 +21,11 @@ $('.notifications-wrapper').prepend(
             .text(
               "<%= invite.order.user.username.titleize + " invited you to" %>"
               +"<% if invite.order.user.gender == "0" %> his"
-              +"<% else %> her <% end %> new order"
+              +"<% else %> her <% end %> new order "
             )
             .append(
               $('<small/>')
-                .text("<%= time_ago_in_words invite.created_at %>")
+                .text(" <%= time_ago_in_words invite.created_at %>")
             )
         )
         .append(
