@@ -12,6 +12,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    puts order_params
   	@order = Order.new(order_params)
     puts @order.inspect
     respond_to do |format|
