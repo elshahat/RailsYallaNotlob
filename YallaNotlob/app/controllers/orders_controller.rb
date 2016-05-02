@@ -11,13 +11,14 @@ class OrdersController < ApplicationController
   end
 
   def create
-    puts order_params[:order_type].class
+    # puts order_params[:order_type].class
 
   	@order = Order.new(order_params)
-    puts @order.inspect
+    # puts @order.inspect
     respond_to do |format|
-	  	if params[:invited] && @order.valid?
-          @order.save
+	  	# if params[:invited] && @order.valid?
+	  	if @order.save && params[:invited]
+
         # @invites = OrderInvite.where(order_id: @order.id)
           # add order invites if the order successfully added
           params[:invited].each { |invite| @order.order_invites.create(order_id: @order.id,user_id: invite) }
@@ -26,6 +27,10 @@ class OrdersController < ApplicationController
 	        format.json { render :show, status: :created, location: @order }
           format.js
 		else
+          if !params[:invited]
+            @order.errors.messages[:friends_invited] = ["needs to be at least one firend"]
+          end
+          puts @order.inspect
 	        format.html { render :new }
 	        format.json { render json: @order.errors, status: :unprocessable_entity }
           format.js
@@ -70,6 +75,6 @@ class OrdersController < ApplicationController
 
       @n_params = params.require(:order).permit(:order_type, :destination, :menu_img, :user_id)
       @n_params[:order_type] = @n_params[:order_type].to_i
-      return @n_params 
+      return @n_params
     end
 end
