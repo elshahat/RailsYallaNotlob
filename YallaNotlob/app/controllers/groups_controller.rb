@@ -7,14 +7,10 @@ class GroupsController < ApplicationController
 		@user = current_user
 		@group = @user.groups.create(group_params)
 		redirect_to :back
-		#group_path(@group)
-		#redirect_to :action => 'suppliers', :id => @product.id 
 
 	end
 
-	#show the groups
 	def show
-		#redirect_to :back
 	end
 
 	def destroy
@@ -26,7 +22,6 @@ class GroupsController < ApplicationController
 	#get name by selcted id
 	def getName
 		@group = Group.find(params[:id])
-		#@name = Group.find(:name, :conditions => ["id = ?", :id])
 		@group_members =[]
 		@group.group_members.each do |member|
 			@group_members.push(User.find(member.user_id));
