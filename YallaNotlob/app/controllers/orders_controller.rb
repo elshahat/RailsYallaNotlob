@@ -1,7 +1,10 @@
 class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
+    @orders = Order.all.where(user_id: current_user.id).order(created_at: :desc)
   end
+
+  
 
   def new
   	@order = Order.new
