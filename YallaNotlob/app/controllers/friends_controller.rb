@@ -5,12 +5,36 @@ class FriendsController < ApplicationController
 	end
 	
 	def create
-		puts params[:name] 
-		@fid = User.find_by(username: params[:name])
-		@user = current_user
-		puts @fid
-		@friend = Friendship.create(user_id: current_user.id, friend_id: @fid.id)
-		render json: @fid
+
+		@parameter = params[:name]
+		
+		if  @parameter.empty?
+			@error_null = {'value': 'You have to put some data'}
+			puts "this guy is empty"
+			render json: @error_null
+		else #check if it is the same user
+			if @parameter == current_user.username 
+				@error_addSelf = {'same': 'You can not add your self !'}
+				puts "add your self nigger"
+				render json: @error_addSelf
+			else
+				#check if the friend exist or not
+				@fid = User.find_by(username: params[:name])
+				if Friendship.exists? friend_id: @fid.id
+				    @error_addExist = {'exist': 'You already added this friend !'}
+					puts "your friend is already here"
+			        render json: @error_addExist
+				else
+					puts "it is a new friend gal save"
+					@user = current_user
+					@friend = Friendship.create(user_id: current_user.id, friend_id: @fid.id)
+					render json: @fid
+				end		
+				puts "New friend Ha"	
+				puts "this guy is full of data"				
+			end
+		end
+			
 	end
 
 	def show
