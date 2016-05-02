@@ -17,7 +17,7 @@
             <% end %>
         </div>
         <%= f.label :order_type, {class: "control-label", value: "For"}%>
-        <%= f.select :order_type, Order.types,{}, class: "form-control" %>
+        <%= f.select :order_type, Order.order_types,{}, class: "form-control" %>
         <br>
         <%= f.label :destination, {class: "control-label", value: "From"}%>
         <%= f.text_field :destination, {class: "form-control",placeholder: "Write A resturant name"} %>

@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
-  resources :orders
+  get 'home/index'
+  resources :orders do
+    # get 'order_items/index'
+
+    # get 'order_items/new'
+
+    # post 'order_items/create'
+
+    # delete 'order_items/destroy'
+    resources :items
+    get '/invited_users' => 'orders#order_invited_users'
+    get '/joined_users' => 'orders#order_joined_users'
+  end
   get 'user/registeration'
   devise_for :users, :controllers => { registrations: 'user', omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
@@ -22,6 +34,7 @@ Rails.application.routes.draw do
     resources :groups do
         post 'getName'
         post 'addFriend'
+        delete 'deletefriend'
     end
 
     resource :friends

@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
 	def new
-		@group = Group.all
+		@group = current_user.groups
 	end
 
 	def create
@@ -42,6 +42,14 @@ class GroupsController < ApplicationController
 		@group = @fid.group_members.create(group_id: @gid)
 		render json: @fid
 	end
+
+	def deletefriend
+		@friend = User.find_by(id: params[:friendId])
+		@group_member = GroupMember.find_by(group_id: params[:groupId],user_id: params[:friendId])
+		@group_member.destroy
+		render json: @friend
+	end
+
 
 	private
 	def group_params
