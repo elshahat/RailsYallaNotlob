@@ -1,5 +1,5 @@
 class FriendsController < ApplicationController
-
+before_action :authenticate_user!	
 	def new
 		@friend_to_user = current_user.friends
 	end
