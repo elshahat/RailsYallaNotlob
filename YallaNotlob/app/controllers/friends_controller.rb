@@ -24,7 +24,8 @@ if User.exists? username: @parameter
 			else
 				#check if the friend exist or not
 				@fid = User.find_by(username: params[:name])
-				if Friendship.exists? friend_id: @fid.id
+				@user = current_user
+				if @user.friendships.exists? friend_id: @fid.id
 				    @error_addExist = {'exist': 'You already added this friend !'}
 					puts "your friend is already here"
 			        render json: @error_addExist
