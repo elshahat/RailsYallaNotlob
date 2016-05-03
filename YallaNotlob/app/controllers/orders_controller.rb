@@ -2,12 +2,15 @@ class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
     @orders = Order.where(user_id: current_user.id)
-    puts @orders.inspect
+    @iorders = Order.includes(:order_invites).reorder("orders.created_at DESC").where(order_invites: {user_id: current_user.id})
+    # puts @orders.inspect
   end
 
   def finish
     @orders = Order.find params[:id]
-      if @orders.update(status: '2')
+      if @orders.status   = 'Finished'  
+         @orders.save
+         puts @orders.inspect
          redirect_to '/orders'
       end
   end
