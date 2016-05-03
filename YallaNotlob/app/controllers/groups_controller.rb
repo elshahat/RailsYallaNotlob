@@ -60,13 +60,39 @@ class GroupsController < ApplicationController
 		else
 			#check if it is wrong type
 			if User.exists? username: @friendName
-			#it is really a user  
-			puts "this guy is full of data"	
-			@fid = User.find_by(username: params[:username])
-			@gid = params[:groupId]
-			@group = @fid.group_members.create(group_id: @gid)
-			render json: @fid
-
+			#it is really a user
+			#check if he is tring to add himself
+			if @friendName == current_user.username	
+				@error_addSelf = {'same': 'You can not add your self !'}
+				render json: @error_addSelf
+			  else	
+			#check if the user exist in the group itself before
+				@fid = User.find_by(username: params[:username])
+				@current_group = Group.find(params[:groupId])
+				if @current_group.group_members.exists? user_id: @fid.id  	  
+					puts "why you are tring to add the same friend"
+					@error_addExist = {'addExist': 'This user is already assigned to this group !'}
+					render json: @error_addExist
+				else
+					#check if this user in friendship list or not
+					@fid = User.find_by(username: params[:username])
+					@user = current_user
+					if @user.friendships.exists? friend_id: @fid.id
+					puts "it is actually a friend"
+					puts "ok it is newwewwewewewewew friend to this group"
+					puts "this guy is full of data"	
+					@fid = User.find_by(username: params[:username])
+					@gid = params[:groupId]
+					@group = @fid.group_members.create(group_id: @gid)
+					render json: @fid
+				    else
+					@error_notFriend = {'notFriend': 'This user is not currently in your friend list!'}
+					render json: @error_notFriend				    	
+				    end
+				end					
+				
+			
+			end	
 			else
 			#it is a robot
 			@error_notExist = {'notExist': 'This user is not exist !'}
