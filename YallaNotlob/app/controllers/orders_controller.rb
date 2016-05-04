@@ -9,7 +9,8 @@ class OrdersController < ApplicationController
     puts @orders_all
     @order_invites = []
 
-    @orders_all.each { |order| @order_invites.push(order.order_invites)  }
+    @orders_all.each { |order| @order_invites.push({invited: order.order_invites.count,
+      joined: order.order_invites.where(invite_status: 1).count })  }
     # puts @orders_new.order_invites.inspect
     puts "coountttttttttttttttttttttt"
     # puts @orders.inspect
