@@ -10,14 +10,11 @@ class OrdersController < ApplicationController
   def finish
     @orders = Order.find params[:id]
     if @orders.user_id  == current_user.id
-      if @orders.status   = 'Finished'  
-         @orders.save
-         puts @orders.inspect
-         redirect_to '/orders'
-      end
-    else
-      redirect_to '/orders'
+      @orders.status: 0
+      puts "THis THe inspect"
+      puts @orders.inspect
     end
+      redirect_to '/orders'
   end
 
 
