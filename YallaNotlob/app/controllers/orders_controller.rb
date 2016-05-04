@@ -3,6 +3,14 @@ class OrdersController < ApplicationController
   def index
     @orders = Order.where(user_id: current_user.id)
     @iorders = Order.includes(:order_invites).reorder("orders.created_at DESC").where(order_invites: {user_id: current_user.id})
+    # @orderInvitationCount = OrderInvite.joins(:order).where(orders: {user_id: current_user.id}).count
+    @orders_all = Order.all
+    puts @orders_all
+    @order_invites = []
+
+    @orders_all.each { |order| @order_invites.push(order.order_invites)  }
+    # puts @orders_new.order_invites.inspect
+    puts "coountttttttttttttttttttttt"
     # puts @orders.inspect
   end
 
@@ -10,7 +18,8 @@ class OrdersController < ApplicationController
   def finish
     @orders = Order.find params[:id]
     if @orders.user_id  == current_user.id
-      @orders.status: 0
+      @orders.update_attributes(:status => 'Finished')
+      @orders.save()
       puts "THis THe inspect"
       puts @orders.inspect
     end
