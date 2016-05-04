@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20160430220501) do
   create_table "orders", force: :cascade do |t|
     t.string   "destination", limit: 100
     t.string   "menu_img",    limit: 200
-    t.integer  "order_type",  limit: 1,               null: false
+    t.integer  "order_type",  limit: 1
     t.integer  "status",      limit: 1,   default: 1
     t.integer  "user_id",     limit: 4
     t.datetime "created_at",                          null: false

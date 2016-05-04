@@ -1,6 +1,8 @@
 // if creation wasnt successfull show error alert
-<% if @order.id == nil %>
-  $('.errors').html('<div class="alert alert-danger">Please Fill all the fields</div>');
+<% if @order.errors.any? %>
+  // $('.errors').html('<div class="alert alert-danger">Please Fill all the fields</div>');
+  <%= render :partial=>'items/errors' , :locals=> { :target => @order } %>
+
 <% else %>
 // publish notifications to all invited users
 <% @invites.each do |invite| %>

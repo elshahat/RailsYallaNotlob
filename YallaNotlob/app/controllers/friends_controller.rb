@@ -1,55 +1,60 @@
 class FriendsController < ApplicationController
-
+before_action :authenticate_user!	
 	def new
-		#query = "SELECT * from users,friendships where friendships.friend_id = users.id group by friendships.friend_id having friendships.user_id = "+current_user.id.to_s
-		#@friend_to_user = ActiveRecord::Base.connection.execute(query)
-		#puts "heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
-		#puts @friend_to_user.inspect
-		#@friend_to_user = User.find_by_sql("SELECT * from users,friendships where friendships.friend_id = users.id group by friendships.friend_id having friendships.user_id = "+current_user.id.to_s)	
 		@friend_to_user = current_user.friends
-		#@friend_to_user = User.select("* from users,friendships").where("friendships(friend_id) = users(id)").group("friendships(friend_id)").having("friendships(user_id) = "+current_user.id.to_s)	
-		#puts @friend_to_user.inspect
-		#SELECT * from `users`,`friendships` where friendships.friend_id = users.id group by friendships.friend_id having friendships.user_id = 8
 	end
 	
 	def create
-		#@friend_id = User.find_by username: ["username = ?", friend_params]
-		#@friend_id = User.find(:conditions => ["username = ?", friend_params])
-		#@friend_id = User.where	(["username = ?", friend_params]).first
-		#@fid = User.find_by(:id,:conditions => ["username = ?", friend_params],)
-		#render plain: User.find_by(friend_params).inspect
-		puts "SSSSS"+params[:username]
-		@fid = User.find_by_sql("SELECT  users.* FROM users WHERE users.username = "+params[:username])
-		#@fid = User.find_by(username: params[:username])
-		puts @fid
-		puts @fid.id
-		
-		puts "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
 
-		@user = current_user
-		@friend = @user.friendships.create(friend_id: @fid.id)
-		render json: @fid
-	end
+		@parameter = params[:name]
+		
+		if  @parameter.empty?
+			@error_null = {'value': 'You have to put some data'}
+			puts "this guy is empty"
+			render json: @error_null
+		else #check if it is the same user
+			#if it is a wrong type
+if User.exists? username: @parameter
+				puts "ok fine it is a user"
+			#check if he is the same user		
+			if @parameter == current_user.username 
+				@error_addSelf = {'same': 'You can not add your self !'}
+				puts "add your self nigger"
+				render json: @error_addSelf
+			else
+				#check if the friend exist or not
+				@fid = User.find_by(username: params[:name])
+				@user = current_user
+				if @user.friendships.exists? friend_id: @fid.id
+				    @error_addExist = {'exist': 'You already added this friend !'}
+					puts "your friend is already here"
+			        render json: @error_addExist
+				else
+					puts "it is a new friend gal save"
+					@user = current_user
+					@friend = Friendship.create(user_id: current_user.id, friend_id: @fid.id)
+					render json: @fid
+				end		
+				puts "New friend Ha"	
+				puts "this guy is full of data"				
+			end
+else
+			@error_notValid = {'notValid': 'This user is not exist !'}
+			puts "Nooo it is a robot"
+			render json: @error_notValid				
+end	
+		end
+			
+	end #function
 
 	def show
 		@friend_to_user = User.joins("INNER JOIN friendships ON friendships.friend_id = users.id")	
-		#render plain: User.joins("INNER JOIN friendships ON friendships.friend_id = users.id").select(:username, :image).inspect
-		#render plain: current_user.inspect
-		#render plain: User.includes(:friendships).where("('current_user.id') LIKE ?", 'friend_id').references(:friendships).inspect
-		#render plain: User.joins(:friendships).where("users.id = ? AND friendships.friend_id = ?", 'current_user.id', 'users.id').inspect
 	end
 
 	def destroy
-		#@user = User.find(params[:param1])
 		@friend = Friendship.find_by(user_id: params[:param1],friend_id: params[:param2])
-		#@friend = Friendship.find("SELECT * FROM friendships WHERE friendships.user_id = "+params[:param1]+" AND friendships.friend_id = "+params[:param2]+" LIMIT 1")
 		@friend.destroy
 		redirect_to :back
 	end
-
-	#private 
-	#def friend_params
-	#params.require(:friend).permit(:username)
-	#end
 
 end
